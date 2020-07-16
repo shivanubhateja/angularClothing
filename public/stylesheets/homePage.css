@@ -404,29 +404,29 @@
         right: 30px;
     }
     .slideHome_1{
-        background: url('https://lh3.googleusercontent.com/R86AYhezT2mmLuIRP-UaID3ZolJQdyT40NDM7jmh5V4tQ3Dt_1YH1XlT6H6c9ApY0SVUQUpyFl-Sk7M67-mTumnl96UKnVS6z0tWlxxtCb78wo6PwNzuCvLUH_BFKCoTbMmCsmejkT0saiNizhndF-nwcEU4EvpGgYc3-N6l5gFrHWvJiznVvUe75iQRI3-6uB6qz8RwziF1dMkN_1dJlGyon5xZHRSmMJUGvDfWr-k8b7cLIbRYZE31VMF7qf7CZ7IITItUVNyyBUVJtK0scWIQNw3SKrNeuph5ujPv7d4cAQpRS3YiB0k1nwgfliNLpOWYqHol1XTp-YF7wKHpjfv_QJJXvLHd-s1wYUn1uDAHW12vOnDo-K8mozjY-797wO_F_HIlFzL8HC-vHojElGBJERmro1RIGklMOu-W_rO6iOh8l52IAZHdEmgC9I_byvsqc93N-BN2-DNAEbCCtO66eKjJWOdDtirtg0v6S2X-i7dmUbm46Sm9ZpPV_5UnUjarzrEsC1Gx-vlxU32932z-Uug-p6NI0T9Mvs17iNkao6_NEvjdJU07LeZIi6so=w1366-h677') center no-repeat;
+        background: url('https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2019/11/17/Pictures/_d2097dde-0919-11ea-8da7-95ed4a38ab68.jpg') center no-repeat;
         background-size: cover;
     }
     .slideHome_2{
-        background: url('./../images/coll5.jpg') top no-repeat;
+        background: url('https://catalog.wlimg.com/1/5346560/other-images/330909.jpg') top no-repeat;
         background-size: cover;
     }
     .slideHome_3{
-        background: url('./../images/tshirtDesc.jpg') center no-repeat;
+        background: url('https://i.ndtvimg.com/i/2016-01/jaggery-gur-625_625x350_51453954590.jpg') center no-repeat;
         background-size: cover;
     }
 }
 @media screen and (min-width: 1400px){
     .slideHome_1{
-        background: url('https://lh3.googleusercontent.com/R86AYhezT2mmLuIRP-UaID3ZolJQdyT40NDM7jmh5V4tQ3Dt_1YH1XlT6H6c9ApY0SVUQUpyFl-Sk7M67-mTumnl96UKnVS6z0tWlxxtCb78wo6PwNzuCvLUH_BFKCoTbMmCsmejkT0saiNizhndF-nwcEU4EvpGgYc3-N6l5gFrHWvJiznVvUe75iQRI3-6uB6qz8RwziF1dMkN_1dJlGyon5xZHRSmMJUGvDfWr-k8b7cLIbRYZE31VMF7qf7CZ7IITItUVNyyBUVJtK0scWIQNw3SKrNeuph5ujPv7d4cAQpRS3YiB0k1nwgfliNLpOWYqHol1XTp-YF7wKHpjfv_QJJXvLHd-s1wYUn1uDAHW12vOnDo-K8mozjY-797wO_F_HIlFzL8HC-vHojElGBJERmro1RIGklMOu-W_rO6iOh8l52IAZHdEmgC9I_byvsqc93N-BN2-DNAEbCCtO66eKjJWOdDtirtg0v6S2X-i7dmUbm46Sm9ZpPV_5UnUjarzrEsC1Gx-vlxU32932z-Uug-p6NI0T9Mvs17iNkao6_NEvjdJU07LeZIi6so=w1366-h677') center no-repeat;
+        background: url('https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2019/11/17/Pictures/_d2097dde-0919-11ea-8da7-95ed4a38ab68.jpg') center no-repeat;
         background-size: cover;
     }
     .slideHome_2{
-        background: url('./../images/coll5.jpg') top no-repeat;
+        background: url('https://catalog.wlimg.com/1/5346560/other-images/330909.jpg') top no-repeat;
         background-size: 100% 840px;
     }
     .slideHome_3{
-        background: url('./../images/tshirtDesc.jpg') center no-repeat;
+        background: url('https://i.ndtvimg.com/i/2016-01/jaggery-gur-625_625x350_51453954590.jpg') center no-repeat;
         background-size: cover;
     }
 }

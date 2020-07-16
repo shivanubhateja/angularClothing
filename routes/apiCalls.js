@@ -114,7 +114,7 @@ router.get('/getOrderDetails', function(req, res){
 })
 router.post("/fetchAvailableSizes", function(req, res){
     var productidArray = req.body.productIds;
-    mailService.sendMail("contact@orangeclips.com", "subject", "checkout page te aya koi https://www.orangeclips.com/productDetails/"+ productidArray.join(','));
+    // mailService.sendMail("contact@orangeclips.com", "subject", "checkout page te aya koi https://www.orangeclips.com/productDetails/"+ productidArray.join(','));
     productsDb.productCollection.find({id: {$in:productidArray}}, 'id sizes',function(err, response){
         if(err){
             res.send({success: false, data: err});
@@ -222,15 +222,6 @@ router.get('/validatePromoCode', function(req, res){
     var emailid = req.query.emailId;
     var phoneNo = req.query.phoneNo;
     mailService.sendMail("contact@orangeclips.com", "subject", promoCode + " promo code v laga lya "+emailid+ " - " +phoneNo +" ne ");
-    if(promoCode.toLowerCase() === 'swetaoc'){
-        mailService.sendMail("swetakumari2197@gmail.com", "Promo Applied", "Hi Sweta, Your promocode SWETAOC is used on orangeclips.com");
-    }
-    if(promoCode.toLowerCase() === 'monoc'){
-        mailService.sendMail("monithmonu98@gmail.com", "Promo Applied", "Hi Amudala Monith, Your promocode MONOC is used on orangeclips.com");
-    }
-    if(promoCode.toLowerCase() === 'ashuoc'){
-        mailService.sendMail("ashutosh291098@gmail.com", "Promo Applied", "Hi Ashutosh Yadav, Your promocode ASHUOC is used on orangeclips.com");
-    }
     var totalAmount = parseInt(req.query.totalAmount, 10);
     promoCodeModel.findOne({code: promoCode.toLowerCase()} , (err, result) => {
         if(err){

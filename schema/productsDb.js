@@ -25,7 +25,7 @@ var productsSchema = mongooseObject.Schema({
     // printed: { type: String, default: "true" },
     filters: []
   },
-  sizes: { XS: Number, S: Number, M: Number, L: Number, XL: Number, XXL: Number },
+  sizes: { "400 G": Number, "1 KG": Number },
   shipsIn: {type: String, Default: "Ships in 24 Hours"},
   images: {
     display: String,

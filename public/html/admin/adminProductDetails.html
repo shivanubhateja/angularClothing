@@ -113,6 +113,9 @@
                 <label class="radio-inline">
                   <input type="radio" name="subCategory" id="inlineRadio2" value="paintByNumber" ng-model="productDetails.categoryInfo.subCategory" required> Paint By Number
                 </label>
+                <label class="radio-inline">
+                    <input type="radio" name="subCategory" id="inlineRadio2" value="jaggeryPowder" ng-model="productDetails.categoryInfo.subCategory" required> Jaggery Powder
+                  </label>  
             </div>
         </div>
         <!--sleeve-->
@@ -166,7 +169,10 @@
             <label class="checkbox-inline">
               <input type="checkbox" id="inlineCheckbox2" ng-click="pushInFilters('paintByNumber')" ng-checked="productDetails.categoryInfo.filters.indexOf('paintByNumber')>=0">Paint By Number
             </label>
-
+            <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox2" ng-click="pushInFilters('powderedSugar')" ng-checked="productDetails.categoryInfo.filters.indexOf('powderedSugar')>=0">JaggeryPowder
+              </label>
+  
         </div>
         <!--limited Edition-->
         <div class="form-group">
@@ -182,7 +188,7 @@
         </div>
         <!--sizes-->
         <div class="availableSizes" style="display: inline-flex">
-            <div ng-repeat="(key, value) in productDetails.sizes"  ng-show="!(productDetails.sizeVarientsAvailable === false) || key==='XS'">
+            <div ng-repeat="(key, value) in productDetails.sizes"  ng-show="!(productDetails.sizeVarientsAvailable === false) || key==='400 G'">
                 <div>
                     <span>{{(!(productDetails.sizeVarientsAvailable === false)) ? key : 'Quantity'}}: </span><input style="width: 50px;" type="number" ng-model="productDetails.sizes[key]" required>&nbsp&nbsp&nbsp&nbsp
                 </div>

@@ -32,7 +32,7 @@ angular.module('mainApp').controller('productDetailsCtrl', ['$scope', '$statePar
     // add to cart
     $scope.addToCart = function(product, selectedSize){
         if($scope.details.sizeVarientsAvailable === false){
-          selectedSize = "XS"
+          selectedSize = "400 G"
         }
         $scope.buyNowOrAddToCartClicked = true;
         if(selectedSize){
@@ -55,9 +55,9 @@ angular.module('mainApp').controller('productDetailsCtrl', ['$scope', '$statePar
     };
     $scope.buyItNow = function(product, selectedSize){
           if($scope.details.sizeVarientsAvailable === false){
-            selectedSize = "XS"
+            selectedSize = "400 G"
           }
-
+          console.log($scope.details);
          $scope.buyNowOrAddToCartClicked = true;
           if(selectedSize || !($scope.details.requestForSizeReceived === false)){
             productToAdd = {productId: product.id, quantity: 1, size: selectedSize, productDetails: product};

@@ -5,5 +5,5 @@ angular.module("mainApp").value('locale', {
     boy: 'boys',
     girls: 'girls',
     unisex: 'unisex',
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL']
+    sizes: ['400 G', '1 KG']
 })
