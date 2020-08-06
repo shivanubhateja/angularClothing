@@ -221,7 +221,7 @@ router.get('/validatePromoCode', function(req, res){
     var promoCode = req.query.promoCode;
     var emailid = req.query.emailId;
     var phoneNo = req.query.phoneNo;
-    mailService.sendMail("contact@orangeclips.com", "subject", promoCode + " promo code v laga lya "+emailid+ " - " +phoneNo +" ne ");
+    // mailService.sendMail("contact@orangeclips.com", "subject", promoCode + " promo code v laga lya "+emailid+ " - " +phoneNo +" ne ");
     var totalAmount = parseInt(req.query.totalAmount, 10);
     promoCodeModel.findOne({code: promoCode.toLowerCase()} , (err, result) => {
         if(err){

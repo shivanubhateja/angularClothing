@@ -1,5 +1,5 @@
 angular.module("mainApp").value('locale', {
-    brandName: 'ORANGE CLIPS',
+    brandName: 'GO JAGG',
     male: "male",
     female: "female",
     boy: 'boys',

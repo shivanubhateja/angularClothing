@@ -1,6 +1,5 @@
 <div ng-controller="checkoutCtrl" class="checkOutParent">
     <!-- Checkmark icon by Icons8 -->
-    <!--<img class="icon icons8-Checkmark" width="48" height="48" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADDElEQVRoQ+2Wy08TURTGz+kMLXTAqAtfceGKDTExRkMqlbRWS0rYmbDyEaKJf5OJhvjakLilUi0dsdgQDDExbFj7woUxQAsdZnrMRRs713kyQ2dIZnbtnDv3953vuzMH4ZBfeMj5IRIQtIORA5EDHjsQRchjAz0vjxzw3EKPD4gc8NhAy+WpR2PHkyK8BFQflO+W14yKQ+tA+kX6WEJJvgXE80D0VRHx0rvbc994EaEUoIP/R7zWUCFVuz/3s1NE6AQMPy8c6d/Vqnud77gIYLVFzbQ8Jf8KrQAGL+22Kohw0Qk8qwmNA/uBD40AM3gA+qiRkuVjE6oIWcHvaPXRxXuLm1bv2kAj5BU+0Ajln+YlVcMF/sCy2DjpfNuVQBz4Aw9lRBzWx8MdfCAO+AnfdQGm8ATLO62tnN2BDXQWsoIXBMqW7pTq+xkMTc9A7kluEEh82FDhJj9/uN0oNZPq66sPVP7LPMGyF3jTCF19NnY6rtIHQDwDRJ+2eoT00q3ihltwVs/gk40jJQBI69b7AG8o4O8MXgOAwfaGRLBS74ll3Yo4aHhDAZnpzNEYJqoIMKQbqAhWRIFGnWbVDJ6I3osC5J0+x851wzNgLoKWRAFydptbwbdAyclT8o4dmNP7poeYiRAwXgHAC3onaGlb2szWJmvbRpsUZgsJ5UfrDZ951nm/4W2/AyOPRwZ6BWmBFwEA1UZyI8+LYPDNdW0WEa9xog8E3lYAK9gTEesvA8JlruPV+InY9eJ4scn+DwLekQBWxD5CmoYVXgQRzSdOCuOsxqjzACBr1Cz4mXk+to6HOeZEIia9QsQrungAFYFARMQbXGzmt6XNCbOz4vSQ2tU5FtB2QtWgxIsw2ET+nvw8tjq5qtgBeL3vSgDbLDOd6Y1BnI3COic6QLoG7/gM8F2yENFV+H0LaDshYKLITGG/iej1uvRlohux6Wyo6wh1Lh6aGYqfapydI6Ld1jllXM7KqtdMu13vSQDbjI0NB/2msRLlWYDbjvldHwnwu6Nunxc54LZjftcfegd+Az1MlEDRj4EtAAAAAElFTkSuQmCC">-->
     <div  ng-if="!showLoading">
         <div ng-if="fewProductsUnavailable" style="color: #F44336">
             <h3>Oh Snap!! Below product(s) went out of stock. 😞</h3>
@@ -12,8 +11,10 @@
             </div>
         </div>
         <div class="checkoutHeader" ng-if="finalCartAvailable.length > 0">
-            <h1>You're gonna love your new Tees.</h1>
-            <span class="thanksMessage">Thanks for getting &nbsp<b>{{availableProducts}}</b> 😄</span>
+            <h1><img class="icon icons8-Checkmark" width="30" height="30" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADDElEQVRoQ+2Wy08TURTGz+kMLXTAqAtfceGKDTExRkMqlbRWS0rYmbDyEaKJf5OJhvjakLilUi0dsdgQDDExbFj7woUxQAsdZnrMRRs713kyQ2dIZnbtnDv3953vuzMH4ZBfeMj5IRIQtIORA5EDHjsQRchjAz0vjxzw3EKPD4gc8NhAy+WpR2PHkyK8BFQflO+W14yKQ+tA+kX6WEJJvgXE80D0VRHx0rvbc994EaEUoIP/R7zWUCFVuz/3s1NE6AQMPy8c6d/Vqnud77gIYLVFzbQ8Jf8KrQAGL+22Kohw0Qk8qwmNA/uBD40AM3gA+qiRkuVjE6oIWcHvaPXRxXuLm1bv2kAj5BU+0Ajln+YlVcMF/sCy2DjpfNuVQBz4Aw9lRBzWx8MdfCAO+AnfdQGm8ATLO62tnN2BDXQWsoIXBMqW7pTq+xkMTc9A7kluEEh82FDhJj9/uN0oNZPq66sPVP7LPMGyF3jTCF19NnY6rtIHQDwDRJ+2eoT00q3ihltwVs/gk40jJQBI69b7AG8o4O8MXgOAwfaGRLBS74ll3Yo4aHhDAZnpzNEYJqoIMKQbqAhWRIFGnWbVDJ6I3osC5J0+x851wzNgLoKWRAFydptbwbdAyclT8o4dmNP7poeYiRAwXgHAC3onaGlb2szWJmvbRpsUZgsJ5UfrDZ951nm/4W2/AyOPRwZ6BWmBFwEA1UZyI8+LYPDNdW0WEa9xog8E3lYAK9gTEesvA8JlruPV+InY9eJ4scn+DwLekQBWxD5CmoYVXgQRzSdOCuOsxqjzACBr1Cz4mXk+to6HOeZEIia9QsQrungAFYFARMQbXGzmt6XNCbOz4vSQ2tU5FtB2QtWgxIsw2ET+nvw8tjq5qtgBeL3vSgDbLDOd6Y1BnI3COic6QLoG7/gM8F2yENFV+H0LaDshYKLITGG/iej1uvRlohux6Wyo6wh1Lh6aGYqfapydI6Ld1jllXM7KqtdMu13vSQDbjI0NB/2msRLlWYDbjvldHwnwu6Nunxc54LZjftcfegd+Az1MlEDRj4EtAAAAAElFTkSuQmCC">
+                It's never too late to make healthy choices.</h1>
+            <!-- <span class="thanksMessage">Thanks for getting &nbsp<b>{{availableProducts}}</b> 😄</span> -->
+            <span class="thanksMessage">You are buying </span>
         </div>
         <div class="cartDetailsCheckOut" ng-if="finalCartAvailable.length > 0">
             <div ng-repeat="product in finalCartAvailable" class="">
@@ -90,25 +91,28 @@
             </div>
             <div  class="col-sm-8 col-xs-12">
                 <p ng-if="!promoCodeSuccess" style="text-align: right">
-                   * use OCGIFT to get 10% instant discount
+                   * use GOHEALTHY to get 10% instant discount
                 </p>
             <p> {{promoCodeError}}
                 {{promoCodeSuccess}}
             </p>
             </div>
         </div>
-        <div ng-if="finalCartAvailable.length > 0" class="col-xs-12 codDiv" ng-click="toggleCod()">
+        <!-- <div ng-if="finalCartAvailable.length > 0" class="col-xs-12 codDiv" ng-click="toggleCod()">
             <input type="checkbox" ng-model="payment.cashOnDelivery" ng-click="toggleCod()"> <span>Cash On Delivery</span>
             <div style="color:grey; margin-left:30px;">(Charges - <i class="fa fa-inr" aria-hidden="true"></i> 29 )</div>
-        </div>
+        </div> -->
 
         <div class="col-xs-12">
         <button class="btn buyNowBtn checkoutAndPay" style="padding: 13px 0;" ng-click="placeOrderAndPayButtonClicked()" ng-if="finalCartAvailable.length > 0 && !payment.cashOnDelivery">
             <div>Proceed To Payment</div>
         </button>
         <button class="btn buyNowBtn checkoutAndPay" style="padding: 13px 0;" ng-click="placeOrderAndPayButtonClicked()" ng-if="finalCartAvailable.length > 0 && payment.cashOnDelivery === true">
-            <div>Place COD order</div>
+            <div>Place order</div>
         </button>
+        <div>
+            <span style="font-weight: 100;">Your order will be placed and our executive will get in touch with your regarding payment.</span>
+        </div>
         <div style="text-align: center; margin-top: 75px;">
             <div>100% secure payments</div>
             <img src="./images/payments.png" style="width: 275px" alt="">

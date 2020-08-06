@@ -12,7 +12,7 @@ angular.module('mainApp').controller('checkoutCtrl', ['$scope', '$stateParams', 
     $rootScope.cartDropDownVisible = false;
     $scope.addressDetails = {};
     $scope.payment = {};
-    $scope.payment.cashOnDelivery = false;
+    $scope.payment.cashOnDelivery = true;
     $scope.payment.codCharges = 0;
     $scope.productIds = _.pluck($scope.cartDetails, "productId");
     // onload refines the cart details

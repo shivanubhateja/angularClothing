@@ -59,7 +59,8 @@ angular.module('mainApp').controller('productDetailsCtrl', ['$scope', '$statePar
           }
           console.log($scope.details);
          $scope.buyNowOrAddToCartClicked = true;
-          if(selectedSize || !($scope.details.requestForSizeReceived === false)){
+        //   if(selectedSize || !($scope.details.requestForSizeReceived === false)){
+        if(selectedSize){
             productToAdd = {productId: product.id, quantity: 1, size: selectedSize, productDetails: product};
             $scope.showSizeError = false;
             $scope.buyNowOrAddToCartClicked = false;

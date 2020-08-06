@@ -247,7 +247,7 @@ exports.sendOrderSuccessEmail = function(JsonRes) {
                                           <div class="bill billPart1 no-padding">
                                              <div class="billWrapper" style="background: white; margin: 0 4px;">
                                                 <div class="heading">
-                                                   <b>Orange Clips</b>
+                                                   <b>Go Jagg</b>
                                                    <span class="pull-right">Order: ` +
                                                    orderId +
                                                    `</span>
