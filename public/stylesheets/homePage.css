@@ -404,7 +404,7 @@
         right: 30px;
     }
     .slideHome_1{
-        background: url('https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2019/11/17/Pictures/_d2097dde-0919-11ea-8da7-95ed4a38ab68.jpg') center no-repeat;
+        background: url('https://res.cloudinary.com/shivanu31/image/upload/v1596958060/5-health-benefits-of-palm-jaggery_dsjhzs.png') center no-repeat;
         background-size: cover;
     }
     .slideHome_2{
@@ -418,7 +418,7 @@
 }
 @media screen and (min-width: 1400px){
     .slideHome_1{
-        background: url('https://www.hindustantimes.com/rf/image_size_960x540/HT/p2/2019/11/17/Pictures/_d2097dde-0919-11ea-8da7-95ed4a38ab68.jpg') center no-repeat;
+        background: url('https://res.cloudinary.com/shivanu31/image/upload/v1596958060/5-health-benefits-of-palm-jaggery_dsjhzs.png') center no-repeat;
         background-size: cover;
     }
     .slideHome_2{

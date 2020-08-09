@@ -135,12 +135,39 @@ angular.module('mainApp').controller('checkoutCtrl', ['$scope', '$stateParams', 
                     // prepaid flow
                         $scope.saveTempOrder().then(function (response) {
                             if (response.data.success) {
+                                console.log(response.data);
                                 $scope.orderId = response.data.response.orderId;
                                 localStorage.setItem('orderid', $scope.orderId);
                                 $scope.showLoading = true;
+                                var options = {
+                                    "key": "rzp_test_gYXTP715OMzTQU", // Enter the Key ID generated from the Dashboard
+                                    "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                                    "currency": "INR",
+                                    "name": "Go Jagg",
+                                    "description": "Health is just a step away",
+                                    "image": "https://example.com/your_logo",
+                                    "order_id": response.data.response.razorPayOrderid, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                                    "handler": function (response) {
+                                        console.log(response);
+                                    },
+                                    "prefill": {
+                                        "name": $scope.addressDetails.fullName,
+                                        "email": $scope.addressDetails.emailId,
+                                        "contact": $scope.addressDetails.phoneNumber
+                                    },
+                                    "notes": {
+                                        "address": $scope.addressDetails.address
+                                    },
+                                    "theme": {
+                                        "color": "#F37254"
+                                    }
+                                };
+                                var rzp1 = new Razorpay(options);
+                                rzp1.open();
+                            
                                 $scope.makePayment().then(function (response) {
                                     document.getElementById("placeHere").innerHTML = response.data;
-                                    document.getElementById("nonseamless").submit();
+                                    // document.getElementById("razorpayform").submit();
                                 }, function () {
                                     
                                 });

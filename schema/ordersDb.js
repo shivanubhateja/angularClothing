@@ -5,7 +5,8 @@ var tempOrdersSchema = mongooseObject.Schema({
   products: [],
   date: Date, 
   promoCode: {type: String, default: "N/A"},
-  cod: {type: Boolean, default: false}
+  cod: {type: Boolean, default: false},
+  razorPayOrderid: String
 });
 
 var placedOrdersSchema = mongooseObject.Schema({

@@ -31,6 +31,9 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/.well-known/acme-challenge/*', function(req, res){
+  res.download(path.join(__dirname + '/certbotChallange.txt'));
+});
 app.use('/users', users);
 var apiCall = app.use('/api', apiCalls);
 var admin = app.use('/adminVeera', admin);

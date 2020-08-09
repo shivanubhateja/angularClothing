@@ -7,6 +7,8 @@ var https = require("https");
 var promoCodeModel = require('../schema/promoCodeSchemaDb');
 var mailService = require('../services/commonServices');
 var emailTemplates = require('./../services/emailTemplates');
+const razorPay = require('../razorPay');
+const { exception } = require('console');
 
 
 /* GET home page. */
@@ -33,6 +35,7 @@ var emailTemplates = require('./../services/emailTemplates');
       }
     });
   };
+
 router.post('/saveRequestForSize', function(req, res){
     var details = {};
     details.contact = req.body.contact;
@@ -123,11 +126,10 @@ router.post("/fetchAvailableSizes", function(req, res){
         }
     });
 });
-router.post('/saveTempOrder', function(req, res){
+router.post('/saveTempOrder', async function(req, res){
     var details = req.body.details;
     shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_');
     details.orderId = shortid.generate();
-    var saveIt = ordersDb.tempOrderCollection(details);
     // reduce qauntity of each product
     for (var i = 0; i < details.products.length; i++) {
         (function(i){
@@ -147,12 +149,27 @@ router.post('/saveTempOrder', function(req, res){
             });
         }(i))
     }
-    saveIt.save(function(err, response){
+    // razor pay
+    var razorPayResponse = null;
+    try{
+        razorPayResponse = await razorPay.createAnOrderInRazorPay(details.total ,details.orderId);
+        if(!razorPayResponse.success){
+            throw "failed to store order in razor pay";
+        }
+    } catch(e) {
+        console.log("failed to store order in razor pay", e);
+    }
+
+    details.razorPayOrderid = razorPayResponse.order.id;
+    // saving ongoing order
+    console.log("saving -> ", details);
+    var saveIt = ordersDb.tempOrderCollection(details);
+    saveIt.save(async function(err, response){
         if (err) {
           res.send({ success: false, response: err });
         } else {
             console.log("tempOrder saved");
-            // timeout
+            // timeout to remove the temp order if product was not purchased successfully, and restore available count of products
           (function(orderId) {
             setTimeout(function() {
               ordersDb.tempOrderCollection.findOne({ orderId: orderId }, function(err, tempOrder) {

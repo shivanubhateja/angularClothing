@@ -16,23 +16,8 @@ exports.postReq = function(request,response){
     var a = data.toString('utf8');
     var JsonRes = JSON.parse('{"' + decodeURI(a).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
     encRequest = ccav.encrypt(body,workingKey); 
-    
-    formbody =  '<form id="razorpayform" action="http://localhost:3000/payment/success" method="POST">'+
-    '<script    '+
-    'src="https://checkout.razorpay.com/v1/checkout.js"    '+
-    'data-key="rzp_test_gYXTP715OMzTQU" '+
-    'data-amount="50000" '+
-    'data-currency="INR"   '+ 
-    'data-order_id="order_CgmcjRh9ti2lP7"'+ 
-    'data-buttontext="Pay with Razorpay"   '+ 
-    'data-name="Acme Corp"    '+
-    'data-description="Test transaction" '+   
-    'data-image="https://example.com/your_logo.jpg" '+   
-    'data-prefill.name="Gaurav Kumar"    '+
-    'data-prefill.email="gaurav.kumar@example.com" '+   
-    'data-prefill.contact="9999999999"    '+
-    'data-theme.color="#F37254"></script>'+
-    '<input type="hidden" custom="Hidden Element" name="hidden"></form>';
+
+	formbody = '<form id="nonseamless" method="post" name="redirect" action="https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction"/> <input type="hidden" id="encRequest" name="encRequest" value="' + encRequest + '"><input type="hidden" name="access_code" id="access_code" value="' + accessCode + '"><script language="javascript">document.redirect.submit();</script></form>';
     });
 				
     request.on('end', function () {
