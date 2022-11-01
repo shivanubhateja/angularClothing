@@ -26,6 +26,6 @@ var mongoose = require('mongoose');
     console.log('MongoDB disconnected!');
     mongoose.connect('mongodb://127.0.0.1:27017/orangeClips', { server: { auto_reconnect: true }, useMongoClient: true });
   });
-  mongoose.connect('mongodb://127.0.0.1:27017/orangeClips', { server: { auto_reconnect: true }, useMongoClient: true });
+  mongoose.connect('mongodb+srv://shivanu31:shivanu31@ecomappmongoatlas.rxgry.mongodb.net/?retryWrites=true&w=majority');
 
 module.exports = mongoose;
