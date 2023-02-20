@@ -21,4 +21,8 @@ router.post('/success', function (request, response){
 router.post('/failure', function (request, response){
         ccavResHandler.postRes(request, response);
 });
+
+router.post('/razorPaySuccess', function(request, response) {
+        ccavResHandler.successResponseFromRazorPay(request, response);
+});
 module.exports = router;

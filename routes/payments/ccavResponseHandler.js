@@ -94,10 +94,10 @@ function readModuleFile(path, callback) {
 }
 
 exports.postRes = function(request, response) {
-  var ccavEncResponse = "",
-    ccavResponse = "",
-    workingKey = "43B1F1970CD906CB64390FC1C399385A", //Put in the 32-Bit key shared by CCAvenues.
-    ccavPOST = "";
+  // var ccavEncResponse = "",
+  //   ccavResponse = "",
+  //   workingKey = "43B1F1970CD906CB64390FC1C399385A", //Put in the 32-Bit key shared by CCAvenues.
+  //   ccavPOST = "";
 
   var saveOrder = function(JsonRes, successResponse) {
     return ordersDb.placedOrdersCollection({
@@ -214,3 +214,77 @@ exports.postRes = function(request, response) {
     // response.end();
   });
 };
+
+exports.successResponseFromRazorPay = function(request, response) {
+  console.log(request.body);
+  console.log("*********")
+  console.log(request.body.details.razorPayResponse.orderId)
+
+  var messageBody = "Hi, \nWe know you gonna love our products. Just hold on till we deliver it to you. You can track your order by clicking below link \n https://orangeclips.com/orderStatus?orderId=" + request.body.details.razorPayResponse.orderId;
+      messageBody = encodeURI(messageBody);
+      // https.get("https://control.msg91.com/api/sendhttp.php?authkey=139030Ag218mR2QtxS59351252&mobiles=" + JsonRes.billing_tel + "&message=" + messageBody + "&sender=OCshop&route=4&country=91", function(res) {});
+      // https.get("https://control.msg91.com/api/sendhttp.php?authkey=139030Ag218mR2QtxS59351252&mobiles=" + '9876665556' + "&message=" + 'Order Aya Order Aya Order Aya' + "&sender=OCshop&route=4&country=91", function(res) {});
+      ordersDb.tempOrderCollection.findOne({ orderId: request.body.details.razorPayResponse.orderId }, function(err, successResponse) {
+        if (err) {
+          console.log(err)
+          console.log("error while getting temporder")
+        } else {
+          // var tosave = ordersDb.placedOrdersCollection({ ...request.body.details.razorPayResponse, ...successResponse});
+          var tosave = ordersDb.placedOrdersCollection({
+            orderId: request.body.details.razorPayResponse.orderId,
+            products: request.body.details.products,
+            date: new Date(),
+            paymentStatus: "Success",
+            payment_mode: "Online",
+            bank_ref_no: request.body.details.razorPayResponse.razorPayOrderid,
+            promoCode: successResponse.promoCode,
+            orderedBy: {
+              name: request.body.details.address.fullName,
+              emailId: request.body.details.address.emailId,
+              phoneNo: request.body.details.address.phoneNumber,
+            },
+            deliveryDetails: {
+              address: request.body.details.address.address,
+              city: request.body.details.address.city,
+              state: request.body.details.address.state,
+              country: "India",
+              pinCode: request.body.details.address.pincode,
+            },
+            amount: request.body.details.total,
+            tracking_id_payment: request.body.details.razorPayResponse.razorpay_payment_id
+          });
+          tosave.save(function(err, success) {
+            if (err) {
+            } else {
+              emailTemplates.sendOrderSuccessEmail({
+                orderId: request.body.details.razorPayResponse.orderId,
+                products: request.body.details.products,
+                date: new Date(),
+                paymentStatus: "Success",
+                payment_mode: "Online",
+                bank_ref_no: request.body.details.razorPayResponse.razorPayOrderid,
+                promoCode: successResponse.promoCode,
+                orderedBy: {
+                  name: request.body.details.address.fullName,
+                  emailId: request.body.details.address.emailId,
+                  phoneNo: request.body.details.address.phoneNumber,
+                },
+                deliveryDetails: {
+                  address: request.body.details.address.address,
+                  city: request.body.details.address.city,
+                  state: request.body.details.address.state,
+                  country: "India",
+                  pinCode: request.body.details.address.pincode,
+                },
+                amount: request.body.details.total,
+                tracking_id_payment: request.body.details.razorPayResponse.razorpay_payment_id
+              });
+              // removeEntryFromTempOrder(JsonRes.order_id);
+              ordersDb.tempOrderCollection.remove({orderId: request.body.details.razorPayResponse.orderId}, function(){})
+              response.cookie("orderId", request.body.details.razorPayResponse.orderId, { maxAge: 900000 });
+              response.sendFile(path.join(__dirname + "/../../views/paymentResponseSuccess.html"));
+            }
+          });
+        }
+      });
+}

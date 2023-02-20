@@ -98,10 +98,10 @@
             </p>
             </div>
         </div>
-        <!-- <div ng-if="finalCartAvailable.length > 0" class="col-xs-12 codDiv" ng-click="toggleCod()">
+        <div ng-if="finalCartAvailable.length > 0" class="col-xs-12 codDiv" ng-click="toggleCod()">
             <input type="checkbox" ng-model="payment.cashOnDelivery" ng-click="toggleCod()"> <span>Cash On Delivery</span>
             <div style="color:grey; margin-left:30px;">(Charges - <i class="fa fa-inr" aria-hidden="true"></i> 29 )</div>
-        </div> -->
+        </div>
 
         <div class="col-xs-12">
         <button class="btn buyNowBtn checkoutAndPay" style="padding: 13px 0;" ng-click="placeOrderAndPayButtonClicked()" ng-if="finalCartAvailable.length > 0 && !payment.cashOnDelivery">

@@ -83,6 +83,9 @@
                 <label class="radio-inline">
                     <input type="radio" name="superCategory" id="inlineRadio2" value="bottom-wear" ng-model="productDetails.categoryInfo.superCategory" required> BOTTOM WEAR
                 </label>
+                <label class="radio-inline">
+                    <input type="radio" name="superCategory" id="inlineRadio2" value="accessory" ng-model="productDetails.categoryInfo.superCategory" required> Accessory
+                </label>
               <label class="radio-inline">
                 <input type="radio" name="superCategory" id="inlineRadio2" value="bottom-wear" ng-model="productDetails.categoryInfo.superCategory" required> Art
             </label>
@@ -113,6 +116,9 @@
                 <label class="radio-inline">
                   <input type="radio" name="subCategory" id="inlineRadio2" value="paintByNumber" ng-model="productDetails.categoryInfo.subCategory" required> Paint By Number
                 </label>
+                <label class="radio-inline">
+                    <input type="radio" name="subCategory" id="inlineRadio2" value="jewellery" ng-model="productDetails.categoryInfo.subCategory" required> Jewellery
+                  </label>
                 <label class="radio-inline">
                     <input type="radio" name="subCategory" id="inlineRadio2" value="jaggeryPowder" ng-model="productDetails.categoryInfo.subCategory" required> Jaggery Powder
                   </label>  
@@ -169,6 +175,9 @@
             <label class="checkbox-inline">
               <input type="checkbox" id="inlineCheckbox2" ng-click="pushInFilters('paintByNumber')" ng-checked="productDetails.categoryInfo.filters.indexOf('paintByNumber')>=0">Paint By Number
             </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox2" ng-click="pushInFilters('jewellery')" ng-checked="productDetails.categoryInfo.filters.indexOf('jewellery')>=0">Jewellery
+              </label>
             <label class="checkbox-inline">
                 <input type="checkbox" id="inlineCheckbox2" ng-click="pushInFilters('powderedSugar')" ng-checked="productDetails.categoryInfo.filters.indexOf('powderedSugar')>=0">JaggeryPowder
               </label>

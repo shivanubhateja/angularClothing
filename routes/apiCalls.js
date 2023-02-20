@@ -152,7 +152,7 @@ router.post('/saveTempOrder', async function(req, res){
     // razor pay
     var razorPayResponse = null;
     try{
-        razorPayResponse = await razorPay.createAnOrderInRazorPay(details.total ,details.orderId);
+        razorPayResponse = await razorPay.createAnOrderInRazorPay((details.total * 100) ,details.orderId);
         if(!razorPayResponse.success){
             throw "failed to store order in razor pay";
         }

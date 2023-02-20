@@ -1,4 +1,4 @@
-angular.module('mainApp').controller('checkoutCtrl', ['$scope', '$stateParams', '$rootScope', '$state', 'productService', 'cartRelatedServices', '$q', function ($scope, $stateParams, $rootScope, $state, productService, cartRelatedServices, $q) {
+angular.module('mainApp').controller('checkoutCtrl', ['$scope', '$stateParams', '$rootScope', '$state', 'productService', 'cartRelatedServices', '$q', "$location", function ($scope, $stateParams, $rootScope, $state, productService, cartRelatedServices, $q, $location) {
     $scope.cartDetails = JSON.parse(localStorage.getItem('finalCart'));
     $scope.cartDetailsRefined = [];
     $scope.forms = {};
@@ -13,7 +13,7 @@ angular.module('mainApp').controller('checkoutCtrl', ['$scope', '$stateParams', 
     $scope.addressDetails = {};
     $scope.payment = {};
     $scope.payment.cashOnDelivery = true;
-    $scope.payment.codCharges = 0;
+    $scope.payment.codCharges = 29;
     $scope.productIds = _.pluck($scope.cartDetails, "productId");
     // onload refines the cart details
     $scope.onload = function () {
@@ -23,7 +23,7 @@ angular.module('mainApp').controller('checkoutCtrl', ['$scope', '$stateParams', 
         $scope.getSizes($scope.productIds);
     }
     $scope.saveTempOrder = function () {
-        return cartRelatedServices.saveTempOrder($scope.finalCartAvailable, $scope.addressDetails, $scope.totalAmount+$scope.payment.codCharges, $scope.promo.code, $scope.payment.cashOnDelivery);
+        return cartRelatedServices.saveTempOrder($scope.finalCartAvailable, $scope.addressDetails, $scope.totalAmount + $scope.payment.codCharges, $scope.promo.code, $scope.payment.cashOnDelivery);
     };
     $scope.getSizes = function (productIds) {
         var promiseForSize = $q.defer();
@@ -118,6 +118,10 @@ angular.module('mainApp').controller('checkoutCtrl', ['$scope', '$stateParams', 
     $scope.makePayment = function () {
         return cartRelatedServices.makePayment($scope.finalCartAvailable, $scope.addressDetails, $scope.totalAmount, $scope.orderId, $scope.promo.code);
     }
+    $scope.recordSuccessfulPayment = function (response) {
+        return cartRelatedServices.recordSuccessfulPayment($scope.finalCartAvailable, $scope.addressDetails, $scope.totalAmount, $scope.orderId, $scope.promo.code, response);
+    }
+
     $scope.placeOrderAndPayButtonClicked = function () {
         $scope.showErrors = true;
         if (!$scope.newAddress || $scope.forms.addressForm.$valid) {
@@ -128,27 +132,32 @@ angular.module('mainApp').controller('checkoutCtrl', ['$scope', '$stateParams', 
                 if (!res.sizeUnavailableAtFinalStage) {
                     if ($scope.originalAmount) $scope.totalAmount = $scope.originalAmount - $scope.discount;
                     // 
-                    if($scope.payment.cashOnDelivery){
+                    if ($scope.payment.cashOnDelivery) {
                         // cash on delivery
                         $scope.placeCashOnDelhiveryOrder();
-                    } else{
-                    // prepaid flow
+                    } else {
+                        // prepaid flow
                         $scope.saveTempOrder().then(function (response) {
                             if (response.data.success) {
                                 console.log(response.data);
                                 $scope.orderId = response.data.response.orderId;
                                 localStorage.setItem('orderid', $scope.orderId);
-                                $scope.showLoading = true;
+                                //$scope.showLoading = true;
                                 var options = {
-                                    "key": "rzp_test_gYXTP715OMzTQU", // Enter the Key ID generated from the Dashboard
-                                    "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                                    "key": "rzp_test_gYXTP715OMzTQU",
                                     "currency": "INR",
-                                    "name": "Go Jagg",
+                                    "name": "JewelleryBrandName",
                                     "description": "Health is just a step away",
                                     "image": "https://example.com/your_logo",
-                                    "order_id": response.data.response.razorPayOrderid, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-                                    "handler": function (response) {
-                                        console.log(response);
+                                    "order_id": response.data.response.razorPayOrderid,
+                                    "handler": function (razorPayResponse) {
+                                        $scope.recordSuccessfulPayment({ ...razorPayResponse, ...response.data.response }).then(function (successPaymentResponse) {
+                                            // document.getElementById("placeHere").innerHTML = successPaymentResponse.data;
+                                            $location.url("/orderStatus");
+                                        }, function (failureResponse) {
+
+                                            console.log(failureResponse)
+                                        })
                                     },
                                     "prefill": {
                                         "name": $scope.addressDetails.fullName,
@@ -163,24 +172,27 @@ angular.module('mainApp').controller('checkoutCtrl', ['$scope', '$stateParams', 
                                     }
                                 };
                                 var rzp1 = new Razorpay(options);
-                                rzp1.open();
-                            
-                                $scope.makePayment().then(function (response) {
-                                    document.getElementById("placeHere").innerHTML = response.data;
-                                    // document.getElementById("razorpayform").submit();
-                                }, function () {
-                                    
+                                rzp1.on('payment.failed', function (response) {
+                                    console.log(response)
                                 });
+                                rzp1.open();
+
+                                // $scope.makePayment().then(function (response) {
+                                //     document.getElementById("placeHere").innerHTML = response.data;
+                                //     // document.getElementById("razorpayform").submit();
+                                // }, function () {
+
+                                // });
                             }
-                        }, function () { });   
+                        }, function () { });
                     }
-                        // 
-                    }
-                })
-                // paymentsStatus = false; 
-                // if(paymentsStatus){
-                    //      localStorage.removeItem('finalCart');
-                    //     if($stateParams.src !== "buyNow")
+                    // 
+                }
+            })
+            // paymentsStatus = false; 
+            // if(paymentsStatus){
+            //      localStorage.removeItem('finalCart');
+            //     if($stateParams.src !== "buyNow")
             //         {
             //             localStorage.setItem('cartDetails', JSON.stringify([]));
             //             $rootScope.numberOfProductsInCart = 0;
@@ -200,25 +212,25 @@ angular.module('mainApp').controller('checkoutCtrl', ['$scope', '$stateParams', 
         $scope.addressDetails = {};
     };
     // COD
-    $scope.toggleCod = function(){
+    $scope.toggleCod = function () {
         $scope.payment.cashOnDelivery = !$scope.payment.cashOnDelivery;
-        if($scope.payment.cashOnDelivery){
+        if ($scope.payment.cashOnDelivery) {
             $scope.payment.codCharges = 29;
-        } else{
-            $scope.payment.codCharges = 0;            
+        } else {
+            $scope.payment.codCharges = 0;
         }
     }
-    $scope.placeCashOnDelhiveryOrder = function(){
+    $scope.placeCashOnDelhiveryOrder = function () {
         var orderDetails = {
             products: $scope.finalCartAvailable,
             date: new Date(),
-            amount: $scope.totalAmount+$scope.payment.codCharges,
+            amount: $scope.totalAmount + $scope.payment.codCharges,
             paymentStatus: "Cash To Be Collected",
             promoCode: $scope.promo.code,
             payment_mode: "Cash To Be Collected",
             orderedBy: {
                 name: $scope.addressDetails.fullName,
-                emailId: $scope.addressDetails.emailId, 
+                emailId: $scope.addressDetails.emailId,
                 phoneNo: $scope.addressDetails.phoneNumber
             },
             deliveryDetails: {
@@ -227,15 +239,14 @@ angular.module('mainApp').controller('checkoutCtrl', ['$scope', '$stateParams', 
                 state: $scope.addressDetails.state,
                 pinCode: $scope.addressDetails.pinCode,
             }
-
         }
-        cartRelatedServices.placeCodOrder(orderDetails).then(function(response){
-            if(!response.data.success){
+        cartRelatedServices.placeCodOrder(orderDetails).then(function (response) {
+            if (!response.data.success) {
                 alert("Something went wrong, Please try after some time");
-            } else{
-                $state.go("orderStatus", {orderId: response.data.orderid});
+            } else {
+                $state.go("orderStatus", { orderId: response.data.orderid });
             }
-        }, function(){})
+        }, function () { })
     }
     // flow
     if ($scope.cartDetails === null) {

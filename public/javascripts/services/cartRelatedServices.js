@@ -5,6 +5,23 @@ angular.module("mainApp").service("cartRelatedServices", [
     this.saveCart = function(cart) {
       this.cartDetails = cart;
     };
+    this.recordSuccessfulPayment = function(cart, address, total, promoCode, cod, razorPayResponse){
+      return $http({
+        method: "POST",
+        url: "/payment/razorPaySuccess",
+        data: {
+          details: {
+            products: cart,
+            promoCode: promoCode,
+            address: address,
+            total: total,
+            time: new Date(),
+            cod: cod, 
+            razorPayResponse
+          }
+        },
+      });
+    }
     this.makePayment = function(cart, address, total, order_id) {
       payload = $.param({
         order_id: order_id,
