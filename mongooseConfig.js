@@ -24,15 +24,8 @@ var mongoose = require('mongoose');
   });
   localDb.on('disconnected', function () {
     console.log('MongoDB disconnected!');
-<<<<<<< HEAD
-    // mongoose.connect('mongodb://ssccgl:ssccgl@ssccgl-shard-00-00-lulnn.mongodb.net:27017,ssccgl-shard-00-01-lulnn.mongodb.net:27017,ssccgl-shard-00-02-lulnn.mongodb.net:27017/sscDb?ssl=true&replicaSet=ssccgl-shard-0&authSource=admin&retryWrites=true', { server: { auto_reconnect: true }});
+    mongoose.connect('mongodb+srv://shivanu31:shivanu31@ecomappmongoatlas.rxgry.mongodb.net/?retryWrites=true&w=majority');
   });
   mongoose.connect('mongodb+srv://shivanu31:shivanu31@ecomappmongoatlas.rxgry.mongodb.net/?retryWrites=true&w=majority');
-  // mongoose.connect('mongodb://ssccgl:ssccgl@ssccgl-shard-00-00-lulnn.mongodb.net:27017,ssccgl-shard-00-01-lulnn.mongodb.net:27017,ssccgl-shard-00-02-lulnn.mongodb.net:27017/sscDb?ssl=true&replicaSet=ssccgl-shard-0&authSource=admin&retryWrites=true', { server: { auto_reconnect: true } });
-=======
-    // mongoose.connect('mongodb+srv://shivanu31:shivanu31@ecomappmongoatlas.rxgry.mongodb.net/?retryWrites=true&w=majority');
-  });
-  mongoose.connect('mongodb+srv://shivanu31:shivanu31@ecomappmongoatlas.rxgry.mongodb.net/?retryWrites=true&w=majority');
->>>>>>> razorpay partial
 
 module.exports = mongoose;
